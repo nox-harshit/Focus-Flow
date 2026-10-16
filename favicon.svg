@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">Focus Flow logo</title><desc id="desc">A lime green clock with a music note on a dark rounded background.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111827"/><stop offset="1" stop-color="#07110f"/></linearGradient><linearGradient id="lime" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d7ff70"/><stop offset="1" stop-color="#9be33d"/></linearGradient></defs>
+<rect x="12" y="12" width="488" height="488" rx="112" fill="url(#bg)"/>
+<circle cx="226" cy="236" r="126" fill="none" stroke="url(#lime)" stroke-width="24" stroke-linecap="round" stroke-dasharray="650 160" transform="rotate(-42 226 236)"/>
+<path d="M226 160v82l58 35" fill="none" stroke="#f8fafc" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M337 190v133c0 29-19 48-46 48-23 0-39-14-39-34 0-23 19-39 46-39 7 0 13 1 19 4V213l74-19v108c0 28-19 47-46 47-22 0-38-14-38-34 0-23 19-39 45-39 8 0 14 1 20 4v-75z" fill="url(#lime)" transform="translate(-5 -1) scale(.92)"/>
+</svg>
