@@ -7,7 +7,7 @@
 <p align="center"><strong>Pomodoro Timer · YouTube Music Search · Stay in the Flow</strong></p>
 
 <p align="center">
-  <img src="assets/banner.svg" alt="Focus Flow — Work, Focus, Listen" width="100%">
+  <img src="banner.svg" alt="Focus Flow — Work, Focus, Listen" width="100%">
 </p>
 
 <p align="center">
