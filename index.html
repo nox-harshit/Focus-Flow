@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08090d">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2308090d'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23d7ff64' stroke-width='4'/%3E%3Cpath d='M32 18v15l11 7' fill='none' stroke='%23d7ff64' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>Focus Flow — Pomodoro + YouTube Music</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div id="background"></div>
+<video id="backgroundVideo" autoplay muted loop playsinline></video>
+<iframe id="backgroundFrame" title="Custom website background" referrerpolicy="no-referrer"></iframe>
+
+<main class="app">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">◷</span><span>FOCUS / FLOW</span></div>
+    <div class="session-pill"><strong id="sessionCount">SESSION 01</strong><span> · </span><span id="totalCount">0 completed</span></div>
+  </header>
+
+  <section class="timer-wrap" aria-label="Pomodoro timer">
+    <div class="eyebrow" id="modeLabel">TIME TO FOCUS</div>
+    <div id="timer" role="button" tabindex="0" aria-label="Start or pause timer">25:00</div>
+    <input id="task" type="text" maxlength="100" placeholder="What are you focusing on? (optional)" aria-label="Current focus task">
+    <div class="progress" aria-label="Timer progress"><div id="progressBar"></div></div>
+    <div class="controls">
+      <button class="round-btn" id="resetBtn" aria-label="Reset timer" title="Reset (R)">↺</button>
+      <button class="primary" id="startBtn">START FOCUS</button>
+      <button class="round-btn" id="skipBtn" aria-label="Skip to next session" title="Skip session">↠</button>
+    </div>
+    <div class="mode-switch" role="group" aria-label="Timer mode">
+      <button class="mode-btn active" data-mode="focus">Focus</button>
+      <button class="mode-btn" data-mode="short">Short break</button>
+      <button class="mode-btn" data-mode="long">Long break</button>
+    </div>
+  </section>
+
+  <div class="bottom-hint">SPACE start/pause&nbsp;&nbsp; · &nbsp;&nbsp;R reset&nbsp;&nbsp; · &nbsp;&nbsp;F fullscreen&nbsp;&nbsp; · &nbsp;&nbsp;S settings&nbsp;&nbsp; · &nbsp;&nbsp;M music</div>
+  <button class="floating" id="settingsBtn" aria-label="Open settings" title="Settings (S)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 2.94-.08-.02a1.7 1.7 0 0 0-1.8.48l-.06.07h-3.4l-.02-.09a1.7 1.7 0 0 0-1.3-1.27l-.09-.02-2.94 1.7-.06-.07a1.7 1.7 0 0 0-1.88-.34l-.08.03-2.4-2.4.04-.08a1.7 1.7 0 0 0-.34-1.88l-.06-.06v-3.4l.09-.02a1.7 1.7 0 0 0 1.27-1.3l.02-.09-1.7-2.94.07-.06a1.7 1.7 0 0 0 .34-1.88l-.03-.08 2.4-2.4.08.04a1.7 1.7 0 0 0 1.88-.34l.06-.06h3.4l.02.09a1.7 1.7 0 0 0 1.3 1.27l.09.02 2.94-1.7.06.07a1.7 1.7 0 0 0 1.88.34l.08-.03 2.4 2.4-.04.08a1.7 1.7 0 0 0 .34 1.88l.06.06v3.4l-.09.02a1.7 1.7 0 0 0-1.27 1.3l-.02.09 1.7 2.94-.07.06z"/></svg>
+  </button>
+</main>
+
+<div class="settings-backdrop" id="settingsBackdrop"></div>
+<aside class="settings" id="settingsPanel" aria-label="Timer settings" aria-hidden="true">
+  <div class="settings-head"><div><p class="settings-kicker">FOCUS / FLOW</p><h2>Settings</h2><p class="settings-subtitle">Make your workspace work for you.</p></div><button class="icon-btn" id="closeSettings" aria-label="Close settings">×</button></div>
+
+  <section class="section">
+    <h3>Timer durations · minutes</h3>
+    <div class="field-grid">
+      <div class="field"><label for="focusMinutes">Focus</label><input id="focusMinutes" type="number" min="1" max="180" value="25"></div>
+      <div class="field"><label for="shortMinutes">Short break</label><input id="shortMinutes" type="number" min="1" max="60" value="5"></div>
+      <div class="field"><label for="longMinutes">Long break</label><input id="longMinutes" type="number" min="1" max="90" value="15"></div>
+      <div class="field"><label for="longEvery">Long break every</label><input id="longEvery" type="number" min="2" max="12" value="4"></div>
+    </div>
+    <p class="help">Changing durations updates the current timer immediately if it is not running. Reset the timer to apply a new duration while paused.</p>
+  </section>
+
+  <section class="section">
+    <h3>Appearance</h3>
+    <div class="field-grid">
+      <div class="field"><label for="accentColor">Accent color</label><input id="accentColor" type="color" value="#d7ff64"></div>
+      <div class="field"><label for="textColor">Timer text</label><input id="textColor" type="color" value="#f7f7f7"></div>
+      <div class="field"><label for="fontSize">Timer size</label><select id="fontSize"><option value="compact">Compact</option><option value="standard">Standard</option><option value="large">Large</option></select></div>
+      <div class="field"><label for="fontChoice">Typeface</label><select id="fontChoice"><option value="system">System / clean</option><option value="serif">Editorial serif</option><option value="mono">Monospace</option><option value="rounded">Rounded</option></select></div>
+      <div class="field full"><label for="googleFont">Google Font name</label><input id="googleFont" type="text" placeholder="e.g. Space Grotesk"></div>
+      <div class="field full"><label for="fontUrl">Font stylesheet or font file URL</label><input id="fontUrl" type="url" placeholder="https://fonts.googleapis.com/css2?family=..."></div>
+      <div class="field full"><button class="small-btn" id="applyFont" type="button">Apply custom font</button><p class="help">Use a Google Fonts CSS URL or a direct .woff2 font file URL. External fonts require an internet connection and a host that permits loading.</p></div>
+      <div class="field full"><label for="overlayRange">Background darkness <span id="overlayValue">25%</span></label><input id="overlayRange" type="range" min="0" max="85" value="25"></div>
+      <div class="field full"><label for="blurRange">Background blur <span id="blurValue">0px</span></label><input id="blurRange" type="range" min="0" max="20" value="0"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h3>Background</h3>
+    <div class="field">
+      <label for="backgroundType">Background type</label>
+      <select id="backgroundType">
+        <option value="default">Midnight gradient</option>
+        <option value="solid">Solid color</option>
+        <option value="gradient">Custom gradient</option>
+        <option value="image">Uploaded image</option>
+        <option value="video">Uploaded video</option>
+        <option value="url">Image / video URL</option>
+        <option value="website">Website embed (iframe)</option>
+      </select>
+    </div>
+    <div id="solidFields" class="field-grid hidden" style="margin-top:12px">
+      <div class="field"><label for="solidColor">Color</label><input id="solidColor" type="color" value="#10131d"></div>
+    </div>
+    <div id="gradientFields" class="field-grid hidden" style="margin-top:12px">
+      <div class="field"><label for="gradientOne">Color 1</label><input id="gradientOne" type="color" value="#10131d"></div>
+      <div class="field"><label for="gradientTwo">Color 2</label><input id="gradientTwo" type="color" value="#31234a"></div>
+      <div class="field full"><label for="gradientAngle">Gradient angle <span id="angleValue">135°</span></label><input id="gradientAngle" type="range" min="0" max="360" value="135"></div>
+    </div>
+    <div id="fileFields" class="field hidden" style="margin-top:12px">
+      <label for="backgroundFile">Choose image or video file</label>
+      <input id="backgroundFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif,video/mp4,video/webm">
+      <p class="help">Your selected file stays in this browser session. Large files may use significant memory; choose a reasonably sized image/video.</p>
+    </div>
+    <div id="urlFields" class="field hidden" style="margin-top:12px">
+      <label for="backgroundUrl">Direct image or video URL</label>
+      <input id="backgroundUrl" type="url" placeholder="https://example.com/background.jpg">
+      <button class="small-btn" id="applyUrl" type="button">Apply URL</button>
+      <p class="help">Use a direct media-file URL, not a regular webpage URL. The remote host must allow loading.</p>
+    </div>
+    <div id="websiteFields" class="field hidden" style="margin-top:12px">
+      <label for="websiteUrl">Website URL</label>
+      <input id="websiteUrl" type="url" placeholder="https://example.com">
+      <button class="small-btn" id="applyWebsite" type="button">Load website</button>
+      <p class="help">Only sites that allow iframe embedding will appear. Many sites block embedding with security headers; this restriction cannot be bypassed by the timer.</p>
+    </div>
+    <div class="button-row" style="margin-top:13px">
+      <button class="small-btn" id="clearBackground" type="button">Clear uploaded background</button>
+    </div>
+  </section>
+
+  <section class="section">
+    <h3>Background library</h3>
+    <div class="field full">
+      <label>Gradient presets</label>
+      <div class="preset-grid" id="gradientPresets">
+        <button class="gradient-swatch" data-gradient="#0f2027|#2c5364|135" style="background:linear-gradient(135deg,#0f2027,#2c5364)" title="Deep ocean">Ocean</button>
+        <button class="gradient-swatch" data-gradient="#42275a|#734b6d|135" style="background:linear-gradient(135deg,#42275a,#734b6d)" title="Amethyst">Amethyst</button>
+        <button class="gradient-swatch" data-gradient="#141e30|#243b55|135" style="background:linear-gradient(135deg,#141e30,#243b55)" title="Midnight">Midnight</button>
+        <button class="gradient-swatch" data-gradient="#11998e|#38ef7d|135" style="background:linear-gradient(135deg,#11998e,#38ef7d)" title="Mint">Mint</button>
+        <button class="gradient-swatch" data-gradient="#fc466b|#3f5efb|135" style="background:linear-gradient(135deg,#fc466b,#3f5efb)" title="Neon">Neon</button>
+        <button class="gradient-swatch" data-gradient="#232526|#414345|135" style="background:linear-gradient(135deg,#232526,#414345)" title="Graphite">Graphite</button>
+        <button class="gradient-swatch" data-gradient="#000428|#004e92|135" style="background:linear-gradient(135deg,#000428,#004e92)" title="Blue hour">Blue hour</button>
+        <button class="gradient-swatch" data-gradient="#654ea3|#eaafc8|135" style="background:linear-gradient(135deg,#654ea3,#eaafc8)" title="Lavender">Lavender</button>
+      </div>
+    </div>
+    <div class="field full" style="margin-top:16px">
+      <label>Image presets</label>
+      <div class="preset-grid image-presets" id="imagePresets">
+        <button class="image-swatch" data-image="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1800&q=85" style="background-image:url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=480&q=70')">Mountain lake</button>
+        <button class="image-swatch" data-image="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1800&q=85" style="background-image:url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=480&q=70')">Ocean</button>
+        <button class="image-swatch" data-image="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1800&q=85" style="background-image:url('https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=480&q=70')">Sunrise</button>
+        <button class="image-swatch" data-image="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1800&q=85" style="background-image:url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=480&q=70')">Night sky</button>
+        <button class="image-swatch" data-image="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1800&q=85" style="background-image:url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=480&q=70')">Forest</button>
+        <button class="image-swatch" data-image="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=85" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=480&q=70')">Desert</button>
+      </div>
+    </div>
+    <div class="field full" style="margin-top:16px">
+      <label>Live video preset</label>
+      <div class="button-row">
+        <button class="small-btn" id="useVideoPreset" type="button">Play ambient flower video</button>
+        <button class="small-btn" id="stopVideoPreset" type="button">Stop video</button>
+      </div>
+      <p class="help">Preset images and video load from external hosts and require internet access. Their availability may change.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h3>Behavior</h3>
+    <div class="field-grid">
+      <div class="field full"><label for="autoStart">After a session ends</label><select id="autoStart"><option value="off">Wait for me to start</option><option value="on">Automatically start next session</option></select></div>
+      <div class="field full"><label for="soundMode">Completion sound</label><select id="soundMode"><option value="on">On</option><option value="off">Off</option></select></div>
+      <div class="field full"><label for="notifyMode">Browser notifications</label><select id="notifyMode"><option value="off">Off</option><option value="on">On (permission required)</option></select></div>
+    </div>
+    <p class="help">Browser notifications require permission. Sound may require a click or key press first due to browser autoplay rules.</p>
+  </section>
+
+  <section class="section">
+    <h3>Keyboard shortcuts</h3>
+    <div class="shortcut-list">
+      <span>Start / pause</span><span><kbd>Space</kbd></span>
+      <span>Reset current session</span><span><kbd>R</kbd></span>
+      <span>Fullscreen</span><span><kbd>F</kbd></span>
+      <span>Open / close settings</span><span><kbd>S</kbd> / <kbd>Esc</kbd></span>
+      <span>Skip to next session</span><span><kbd>N</kbd></span>
+      <span>Focus mode</span><span><kbd>1</kbd></span>
+      <span>Short break</span><span><kbd>2</kbd></span>
+      <span>Long break</span><span><kbd>3</kbd></span>
+    </div>
+    <p class="help">Shortcuts are ignored while you type in an input or text field. To customize keys, edit the shortcut map near the top of the JavaScript.</p>
+  </section>
+
+  <section class="section">
+    <div class="button-row">
+      <button class="small-btn" id="resetSettings" type="button">Reset all settings</button>
+      <button class="small-btn" id="exportSettings" type="button">Export settings</button>
+      <button class="small-btn" id="importSettingsBtn" type="button">Import settings</button>
+      <input id="importSettingsFile" type="file" accept="application/json,.json" class="hidden">
+    </div>
+    <p class="help">Settings are saved locally in this browser. Uploaded files are not saved permanently; select them again after reloading the page.</p>
+  </section>
+</aside>
+<button class="music-fab" id="musicBtn" aria-label="Open music player" title="Music player (M)">♫</button>
+<div class="music-mini" id="musicMini" aria-hidden="true">
+  <div class="music-mini-art" id="miniArt"></div>
+  <div class="music-mini-copy"><strong id="miniTitle">Nothing playing</strong><span id="miniArtist">Open player</span></div>
+  <button type="button" id="miniPlay" aria-label="Play or pause">▶</button>
+</div>
+<section class="music-panel" id="musicPanel" aria-label="Music player" aria-hidden="true">
+  <div class="music-head"><div><div class="music-kicker">FOCUS SOUNDTRACK</div><h2>Music player</h2></div><button class="icon-btn" id="closeMusic" aria-label="Close music player">×</button></div>
+  <div class="now-playing">
+    <div class="album-art" id="albumArt" aria-label="Album artwork"><span id="albumGlyph">♫</span><span class="eq" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    <div class="track-meta">
+      <strong id="trackTitle">Nothing playing</strong>
+      <span id="trackArtist">Search YouTube to play a track</span>
+      <span class="source-chip" id="trackSource">Ready</span>
+    </div>
+  </div>
+  <div class="youtube-player-wrap" id="youtubePlayerWrap" aria-label="YouTube music player">
+    <iframe class="embed-frame" id="musicEmbed" title="YouTube music player" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+  <audio id="musicAudio" preload="none" hidden></audio>
+  <div class="music-progress"><span id="musicCurrent">0:00</span><input id="musicSeek" type="range" min="0" max="100" value="0" aria-label="Seek music"><span id="musicDuration">0:00</span></div>
+  <div class="music-controls">
+    <button class="round-btn" id="prevTrack" title="Previous" aria-label="Previous track">|◀</button>
+    <button class="music-play" id="toggleMusic" aria-label="Play music">▶</button>
+    <button class="round-btn" id="nextTrack" title="Next" aria-label="Next track">▶|</button>
+  </div>
+  <div class="field full music-volume"><label for="musicVolume">Volume</label><input id="musicVolume" type="range" min="0" max="1" step="0.01" value="0.7"></div>
+  <div class="music-import">
+    <label for="musicSearch">Search YouTube</label>
+    <div class="music-search">
+      <input id="musicSearch" type="text" placeholder="Song, artist, or lofi mix" aria-label="Search online music">
+      <button class="small-btn" id="searchMusic" type="button">Search</button>
+    </div>
+    <details class="api-key-settings">
+      <summary>YouTube API setup</summary>
+      <p class="help">GitHub Pages cannot run a private backend. Add your own YouTube Data API v3 key here; it stays in this browser only.</p>
+      <div class="music-search api-key-row">
+        <input id="youtubeApiKey" type="password" autocomplete="off" placeholder="YouTube Data API key" aria-label="YouTube Data API key">
+        <button class="small-btn" id="saveApiKey" type="button">Save key</button>
+      </div>
+      <p class="help">Restrict your key to YouTube Data API v3 and your GitHub Pages HTTP referrer in Google Cloud Console.</p>
+    </details>
+    <div class="search-results-head"><strong>Search results</strong><span id="searchResultCount">Search YouTube</span></div>
+    <div class="playlist search-results" id="searchResults"><div class="playlist-empty">Search for a song, then choose a result to play.</div></div>
+    <div class="resolve-bar" id="resolveBar"><span id="resolveFill"></span></div>
+  </div>
+  <div class="playlist-head"><strong>Recently played</strong><span id="playlistCount">0 tracks</span></div>
+  <div class="playlist" id="playlist"><div class="playlist-empty">Search YouTube to play a track to start.</div></div>
+</section>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="./app.js" defer></script>
+</body>
+</html>
