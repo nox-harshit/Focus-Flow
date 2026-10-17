@@ -1356,3 +1356,21 @@
     init();
   }
 })();
+  // Deep links: open Music or Settings from the URL.
+  function openDeepLink() {
+    const page = window.location.hash.toLowerCase();
+
+    if (page === "#music") {
+      musicPanel(true);
+    } else if (page === "#settings") {
+      openSettings();
+    }
+  }
+
+  window.addEventListener("hashchange", openDeepLink);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", openDeepLink);
+  } else {
+    openDeepLink();
+  }
