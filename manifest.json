@@ -1,11 +1,11 @@
 {
-  "id": "./",
+  "id": "focusflow",
   "name": "Focus Flow",
   "short_name": "Focus Flow",
   "description": "A focused workspace with a Pomodoro timer, music player, and customizable settings.",
   "lang": "en",
   "dir": "ltr",
-  "start_url": "./",
+  "start_url": "https://focusflow.go-live.me/",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -52,5 +52,28 @@
       "form_factor": "narrow",
       "label": "Focus Flow music player"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Focus Timer",
+      "url": "https://focusflow.go-live.me/",
+      "description": "home"
+    },
+    {
+      "name": "Music Player",
+      "url": "https://focusflow.go-live.me/#music",
+      "description": "Music Player"
+    },
+    {
+      "name": "Settings",
+      "url": "https://focusflow.go-live.me/#settings",
+      "description": "app settting"
+    }
+  ],
+  "iarc_rating_id": "13+",
+  "prefer_related_applications": true,
+  "display_override": [
+    "standalone",
+    "window-controls-overlay"
   ]
 }
