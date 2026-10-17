@@ -1,0 +1,56 @@
+{
+  "id": "./",
+  "name": "Focus Flow",
+  "short_name": "Focus Flow",
+  "description": "A focused workspace with a Pomodoro timer, music player, and customizable settings.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08090d",
+  "theme_color": "#d7ff5f",
+  "categories": [
+    "education",
+    "music",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "timer.png",
+      "sizes": "707x963",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Focus Flow timer"
+    },
+    {
+      "src": "settings.png",
+      "sizes": "602x1013",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Focus Flow settings"
+    },
+    {
+      "src": "music-player.png",
+      "sizes": "515x767",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Focus Flow music player"
+    }
+  ]
+}
