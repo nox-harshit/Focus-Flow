@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="favicon.svg" alt="Focus Flow favicon" width="88" height="88">
+  <img src="favicon.svg" alt="focus.flow favicon" width="96" height="96">
 </p>
 
-<h1 align="center">Focus Flow</h1>
+<h1 align="center">focus.flow</h1>
 
-<p align="center"><strong>Pomodoro Timer · YouTube Music Search · Stay in the Flow</strong></p>
+<p align="center"><strong>Work · Focus · Listen — Minimal Pomodoro Focus Timer & Ambient Music Player</strong></p>
 
 <p align="center">
-  <img src="banner.svg" alt="Focus Flow — Work, Focus, Listen" width="100%">
+  <img src="banner.svg" alt="focus.flow — Work, Focus, Listen" width="100%">
 </p>
 
 <p align="center">
@@ -20,188 +20,164 @@
 
 <p align="center">
   <a href="#-features">Features</a> ·
-  <a href="#-publish-the-website-on-github-pages">Deploy</a> ·
-  <a href="#-run-the-website-locally">Run locally</a> ·
-  <a href="#-youtube-api-setup">YouTube API</a>
+  <a href="#-project-file-structure">Project Structure</a> ·
+  <a href="#-local-development">Local Development</a> ·
+  <a href="#-publish-to-github-pages">GitHub Pages</a> ·
+  <a href="#-youtube-music-setup">YouTube Music Setup</a> ·
+  <a href="#-troubleshooting">Troubleshooting</a>
 </p>
 
-Focus Flow is a browser-based productivity timer with customizable focus and break sessions, appearance settings, and a music panel for searching YouTube and playing selected tracks in YouTube's official player. Only tracks you choose to play are added to Recently Played; search results are not automatically saved to history.
+---
 
-**Live website:** After you enable GitHub Pages, replace the placeholders in this link with your GitHub username and repository name:
+**focus.flow** is an elegant, distraction-free Pomodoro productivity timer designed to help you stay in your flow state. It integrates a compliant, compact YouTube music player, customizable workspaces, ambient presets, and browser persistence without requiring complex backend servers or bloated frameworks.
 
-`https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/`
+---
 
-> The live link will work only after the files have been pushed to GitHub and the Pages deployment has completed. This README cannot know your final URL until you choose a repository name.
+## ⚡ Features
 
-## Features
+- **Pomodoro Focus Timer**: Configurable focus sessions, short breaks, and long breaks with session tracking and progress rings.
+- **Accurate Background Execution**: Calculates remaining session time from actual timestamps so switching tabs or minimizing the browser won't desync your timer.
+- **Audio Chime & Notifications**: Web Audio API synthetic chime that works offline without external sound files, plus optional browser desktop notifications.
+- **Official YouTube Music Player**: Search YouTube videos, paste direct YouTube links or IDs, or select from curated focus stations (Lofi Beats, Synthwave, Deep Focus, Piano Flow).
+- **Compliant Audio & Video Playback**: Fully compliant YouTube embedded player with pause, play, volume, previous, and next controls.
+- **Strict History Hygiene**: Search results are **never** automatically added to history; only tracks you deliberately select for playback are recorded into Recently Played.
+- **Appearance & Typography**: Custom accent colors, dark/light text, font sizes (Compact, Standard, Large), clean system/editorial/monospace/rounded typefaces, and Google Fonts or custom `.woff2` font loading.
+- **Custom Workspaces & Media Backgrounds**:
+  - Default deep midnight gradient
+  - Custom colors and multi-stop angle gradients
+  - Uploaded image or video files (stays local in browser memory)
+  - Direct media URLs (.mp4, .webm, images)
+  - Website embeds (via iframe)
+  - Curated library of 8 gradient presets and 6 high-definition nature presets
+  - Adjustable background darkness overlay (0–85%) and blur (0–20px)
+- **Settings Backup**: Export and import your configuration as a clean JSON file anytime.
+- **Quick Keyboard Shortcuts**:
+  - `Space`: Start / Pause timer
+  - `R`: Reset current session
+  - `F`: Toggle fullscreen
+  - `S` or `Esc`: Open / Close settings panel
+  - `M`: Open / Close music panel
+  - `N`: Skip to next session
+  - `1`: Switch to Focus mode (25m default)
+  - `2`: Switch to Short break (5m default)
+  - `3`: Switch to Long break (15m default)
+- **Smooth Loading Experience**: Center-aligned branding and rotating accent ring with automatic motion-reduction compliance (`prefers-reduced-motion`).
 
-- Pomodoro focus timer, short breaks, and long breaks
-- Customizable timer durations and appearance
-- YouTube search and playback through the official YouTube player
-- Recently Played history for tracks you choose to play
-- Browser-local storage for preferences and history
-- Responsive layout for desktop and mobile browsers
-- No build step or package installation required for the static website
+---
 
-## Project files
-
-| File | Purpose |
-| --- | --- |
-| `index.html` | Website structure and controls |
-| `styles.css` | Layout, colors, and responsive styling |
-| `app.js` | Timer, settings, YouTube search/player, and browser storage logic |
-| `README.md` | Setup, publishing, and troubleshooting guide |
-| `404.html` | Simple not-found page for the site |
-| `.nojekyll` | Prevents GitHub Pages from processing the site with Jekyll |
-| `.gitignore` | Ignores common local/editor files |
-| `LICENSE` | MIT license text |
-| `assets/logo.svg` | Focus Flow brand logo |
-| `favicon.svg` | Browser tab and bookmark icon |
-| `assets/banner.svg` | Focus Flow banner displayed at the top of this README |
-
-## 1. Publish the website on GitHub Pages
-
-### A. Create a repository
-
-1. Sign in to [GitHub](https://github.com/).
-2. Open [Create a new repository](https://github.com/new).
-3. Give it a name, for example `focus-flow`.
-4. Choose **Public** if you want anyone to be able to view the repository, or choose another visibility option supported by your GitHub plan and Pages settings.
-5. Create the repository. You can add a README there, but avoid replacing this project's README if you want to keep these instructions.
-
-### B. Upload the project files
-
-1. Download and extract the project ZIP to your computer.
-2. Open the extracted `focus_flow_github_pages` folder.
-3. In your GitHub repository, select **Add file → Upload files**.
-4. Upload the *contents* of the extracted folder, not the ZIP file itself. Make sure `index.html`, `styles.css`, and `app.js` are directly in the repository root, alongside `README.md`.
-5. Commit the upload to the `main` branch.
-
-Your repository's root should look approximately like this:
+## 📁 Project File Structure
 
 ```text
-focus-flow/
-├── index.html
-├── styles.css
-├── app.js
-├── README.md
-├── 404.html
-├── .nojekyll
-├── .gitignore
-└── LICENSE
+focus.flow/
+├── index.html          # Application structure, controls, and accessibility tags
+├── styles.css          # Design system, themes, loading screen, and responsive layouts
+├── app.js              # Timer engine, music integration, and local storage state
+├── favicon.svg         # Primary application logo and browser icon
+├── banner.svg          # Brand banner illustration
+├── assets/
+│   ├── logo.svg        # Scalable vector logo for brand presentation
+│   ├── banner.svg      # High-resolution brand banner
+│   └── favicon.svg     # Secondary asset reference for favicon
+├── metadata.json       # Applet metadata configuration
+├── package.json        # NPM dependencies and local dev scripts
+├── 404.html            # Custom not-found page with matching aesthetic
+├── .nojekyll           # Ensures GitHub Pages processes all assets without Jekyll
+├── .gitignore          # Ignores editor and system artifacts
+├── LICENSE             # MIT license
+└── README.md           # Documentation and setup instructions
 ```
 
-### C. Turn on GitHub Pages
+---
 
-1. Open your repository on GitHub.
-2. Select **Settings → Pages**.
-3. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-4. Choose branch **`main`** and folder **`/(root)`**.
-5. Click **Save**.
-6. Wait for GitHub Pages to finish deploying. You can check progress in the repository's **Actions** tab or return to **Settings → Pages**.
+## 💻 Local Development
 
-### D. Open the live website
+### Prerequisites
+- Node.js (version 18 or newer recommended)
+- A modern web browser (Chrome, Firefox, Safari, Edge)
 
-For a repository named `focus-flow`, the URL normally looks like:
-
-`https://YOUR-USERNAME.github.io/focus-flow/`
-
-For a repository named `YOUR-USERNAME.github.io`, the URL is normally:
-
-`https://YOUR-USERNAME.github.io/`
-
-Replace `YOUR-USERNAME` and the repository name with your own values. Open the URL in a browser. The website may take a few minutes to become available after the first deployment.
-
-## 2. Run the website locally
-
-This project is a static website. You do **not** need Node.js, `npm install`, or a backend to run the page itself.
-
-### Option A — Python (recommended if installed)
-
-1. Extract the ZIP.
-2. Open a terminal or command prompt inside the folder that contains `index.html`.
-3. Run:
-
+### Setup & Run
+1. Clone or download this repository.
+2. Open a terminal in the project directory:
    ```bash
-   python -m http.server 8000
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+> **Tip**: Because this application is written in clean, modern vanilla JavaScript and HTML5, you can also serve it with any static web server (such as Python's `python3 -m http.server 3000` or VS Code Live Server).
+
+---
+
+## 🚀 Publish to GitHub Pages
+
+Because **focus.flow** uses client-side architecture and official YouTube embed APIs, it can be hosted 100% free on **GitHub Pages**!
+
+### Step 1: Create a GitHub Repository
+1. Go to [GitHub](https://github.com/) and click **New Repository**.
+2. Name the repository `focus.flow` (or any name you prefer).
+3. Set the visibility to **Public** (or Private if you have GitHub Pro/Enterprise with Pages enabled).
+4. Click **Create repository**.
+
+### Step 2: Push or Upload Files
+Ensure all project files (`index.html`, `styles.css`, `app.js`, `favicon.svg`, `banner.svg`, `assets/`, etc.) are placed in the **root** directory of your repository.
+
+If using git:
+```bash
+git init
+git add .
+git commit -m "Initial commit for focus.flow"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+git push -u origin main
+```
+
+### Step 3: Turn on GitHub Pages
+1. In your GitHub repository, navigate to **Settings** → **Pages**.
+2. Under **Build and deployment**:
+   - **Source**: Select `Deploy from a branch`
+   - **Branch**: Select `main` and `/ (root)`
+3. Click **Save**.
+4. In 1–2 minutes, your website will be live at:
+   ```
+   https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/
    ```
 
-   If your system uses `python3`, run `python3 -m http.server 8000` instead.
-4. Open `http://localhost:8000` in your browser.
-5. To stop the local server, return to the terminal and press **Ctrl+C**.
+---
 
-### Option B — VS Code Live Server
+## 🎵 YouTube Music Setup
 
-1. Install [Visual Studio Code](https://code.visualstudio.com/).
-2. Open the extracted project folder in VS Code.
-3. Install the **Live Server** extension if it is not already installed.
-4. Right-click `index.html` and choose **Open with Live Server**.
-5. Your browser will open a local address, commonly `http://127.0.0.1:5500`.
+**focus.flow** gives you multiple ways to listen to music while you focus:
 
-You can also double-click `index.html` to view the page, but using a local HTTP server is recommended for consistent browser behavior.
+### 1. Curated Focus Stations (No API Key Required)
+Click any of the curated station chips inside the music panel (e.g., *☕ Lofi Beats*, *⚡ Synthwave*, *🌌 Deep Focus*, *🎹 Piano Flow*). These stream instantly through YouTube's official player.
 
-## 3. Enable YouTube search
+### 2. Direct YouTube Links or Video IDs (No API Key Required)
+Copy any YouTube link from your browser (e.g. `https://www.youtube.com/watch?v=VIDEO_ID` or `https://youtu.be/VIDEO_ID`) and paste it directly into the search bar. **focus.flow** will immediately load the video into your player and save it to your Recently Played list.
 
-GitHub Pages serves static files only. It cannot run a Node.js server or keep a server-side `.env` file secret. This edition calls the YouTube Data API from the browser, so you need a YouTube Data API v3 key for search.
-
+### 3. YouTube Data API v3 (For Unlimited Live Search)
+To search any song, artist, or album directly from within the app:
 1. Open the [Google Cloud Console](https://console.cloud.google.com/).
-2. Create or select a Google Cloud project.
-3. Open **APIs & Services → Library**, search for **YouTube Data API v3**, and enable it.
-4. Open **APIs & Services → Credentials** and create an API key.
-5. In the key's settings, restrict it to **YouTube Data API v3**.
-6. Add website referrers for the site where you will use the app. Examples (replace the placeholders):
+2. Create a free project or select an existing one.
+3. Search for **YouTube Data API v3** in the API Library and click **Enable**.
+4. Navigate to **APIs & Services** → **Credentials** → **Create Credentials** → **API key**.
+5. *(Recommended)* Under **API restrictions**, select **Restrict key** and check **YouTube Data API v3**. Under **Application restrictions**, add your GitHub Pages URL as an HTTP referrer.
+6. In **focus.flow**, click the floating Music icon (`♫`), expand **YouTube API setup**, paste your key, and click **Save key**.
+7. Your key is stored securely in your browser's `localStorage` and is never sent to any third-party server.
 
-   ```text
-   https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/*
-   http://localhost:8000/*
-   http://127.0.0.1:5500/*
-   ```
+---
 
-   Add only the local address you actually use. If you use a different Live Server port, allow that port as well.
-7. Open Focus Flow and expand **YouTube API setup** in the music panel.
-8. Paste your API key and click **Save key**.
-9. Search for a track and select it to play. A selected track should appear in Recently Played; search results alone should not be added.
+## 🛠️ Troubleshooting
 
-### API key security
+- **Audio doesn't play automatically**: Modern browsers require user interaction (a click or key press) before allowing audio playback. Click the Play button or anywhere on the page to enable sound.
+- **YouTube video says "Video unavailable"**: Some uploaders restrict embedding on third-party domains. Try another search result or a curated station.
+- **Website background doesn't appear**: Many websites (like google.com or github.com) send `X-Frame-Options: SAMEORIGIN` or CSP headers that prevent them from being embedded in an iframe. Use sites that permit embedding or stick to image/video backgrounds.
+- **Custom font doesn't load**: Ensure your URL is a direct `.woff2` font file or a valid Google Fonts CSS link that allows cross-origin requests (`Access-Control-Allow-Origin: *`).
 
-A key used by a browser cannot be kept secret from that browser's user. Restrict it by both API and HTTP referrer, keep an eye on quota usage, and do not commit an unrestricted key to GitHub. This project saves the key in the current browser's local storage; it does not require a `.env` file for GitHub Pages. For stronger protection, use a backend or serverless API proxy hosted separately from GitHub Pages.
+---
 
-## 4. Troubleshooting
+## 📄 License
 
-### The page appears unstyled
-
-- Confirm `styles.css` is in the same repository folder as `index.html`.
-- Check the filename spelling and capitalization. GitHub Pages paths are case-sensitive.
-- Open browser developer tools and look in **Console** and **Network** for failed file requests.
-- Hard-refresh the page after deployment (`Ctrl+Shift+R` on many desktop browsers).
-
-### Buttons or timer do not work
-
-- Confirm `app.js` is beside `index.html` in the repository root.
-- Check the browser developer tools **Console** for JavaScript errors.
-- Hard-refresh the page after the latest commit has deployed.
-
-### YouTube search fails
-
-- Confirm the YouTube Data API v3 is enabled for the Google Cloud project that owns the key.
-- Check that the key is saved in the app's **YouTube API setup** section.
-- Check API restrictions, HTTP referrer rules, and remaining quota.
-- Make sure the referrer pattern matches the exact deployed repository URL or local server address.
-
-### Music does not play
-
-- YouTube playback uses YouTube's official embedded player and is subject to YouTube availability, browser autoplay restrictions, and the video's playback settings.
-- Try pressing Play after selecting a result and make sure your browser is not blocking playback.
-- Some videos may be unavailable in your region or may not permit embedded playback.
-
-## Playback note
-
-YouTube's supported player displays video content. YouTube does not offer an official audio-only playback API. This project does not extract, download, or conceal YouTube's video stream.
-
-## Privacy and saved data
-
-Timer preferences, appearance settings, the API key, and Recently Played history are saved in the current browser using local storage. They are not automatically synchronized between devices. Clearing the site's browser storage removes the saved data.
-
-## License
-
-This project is distributed under the MIT License. See [`LICENSE`](LICENSE).
+This project is licensed under the [MIT License](LICENSE).

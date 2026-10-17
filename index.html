@@ -4,19 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#08090d">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2308090d'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23d7ff64' stroke-width='4'/%3E%3Cpath d='M32 18v15l11 7' fill='none' stroke='%23d7ff64' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<title>Focus Flow — Pomodoro + YouTube Music</title>
+<meta name="description" content="focus.flow — Minimal, beautiful Pomodoro focus timer and YouTube music player with customizable backgrounds and themes.">
+<meta property="og:title" content="focus.flow — Pomodoro Timer & Music Player">
+<meta property="og:description" content="Stay in your flow state with customizable focus sessions, ambient backgrounds, and integrated YouTube music.">
+<meta property="og:image" content="./banner.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="focus.flow — Pomodoro Timer & Music Player">
+<meta name="twitter:description" content="Stay in your flow state with customizable focus sessions, ambient backgrounds, and integrated YouTube music.">
+<meta name="twitter:image" content="./banner.svg">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="apple-touch-icon" href="./favicon.svg">
+<title>focus.flow — Focus Timer & Music Player</title>
 <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+<!-- Loading Screen -->
+<div id="loader" class="app-loader" aria-live="polite" aria-label="Loading focus.flow">
+  <div class="loader-content">
+    <div class="loader-visual">
+      <div class="loader-ring" aria-hidden="true"></div>
+      <img src="./favicon.svg" alt="focus.flow logo" class="loader-logo" width="80" height="80">
+    </div>
+    <div class="loader-brand">
+      <h1 class="loader-title">focus<span class="loader-dot">.</span>flow</h1>
+      <p class="loader-subtitle">Work · Focus · Listen</p>
+    </div>
+    <div class="loader-progress-track" aria-hidden="true">
+      <div class="loader-progress-bar"></div>
+    </div>
+  </div>
+</div>
+
 <div id="background"></div>
 <video id="backgroundVideo" autoplay muted loop playsinline></video>
 <iframe id="backgroundFrame" title="Custom website background" referrerpolicy="no-referrer"></iframe>
 
 <main class="app">
   <header class="topbar">
-    <div class="brand"><span class="brand-mark">◷</span><span>FOCUS / FLOW</span></div>
-    <div class="session-pill"><strong id="sessionCount">SESSION 01</strong><span> · </span><span id="totalCount">0 completed</span></div>
+    <div class="brand">
+      <img src="./favicon.svg" alt="focus.flow logo" class="brand-logo" width="28" height="28">
+      <span class="brand-name">focus<span class="accent-dot">.</span>flow</span>
+    </div>
+    <div class="session-pill"><strong id="sessionCount">SESSION 01</strong><span class="pill-divider">·</span><span id="totalCount">0 completed</span></div>
   </header>
 
   <section class="timer-wrap" aria-label="Pomodoro timer">
@@ -27,7 +56,7 @@
     <div class="controls">
       <button class="round-btn" id="resetBtn" aria-label="Reset timer" title="Reset (R)">↺</button>
       <button class="primary" id="startBtn">START FOCUS</button>
-      <button class="round-btn" id="skipBtn" aria-label="Skip to next session" title="Skip session">↠</button>
+      <button class="round-btn" id="skipBtn" aria-label="Skip to next session" title="Skip session (N)">↠</button>
     </div>
     <div class="mode-switch" role="group" aria-label="Timer mode">
       <button class="mode-btn active" data-mode="focus">Focus</button>
@@ -44,7 +73,14 @@
 
 <div class="settings-backdrop" id="settingsBackdrop"></div>
 <aside class="settings" id="settingsPanel" aria-label="Timer settings" aria-hidden="true">
-  <div class="settings-head"><div><p class="settings-kicker">FOCUS / FLOW</p><h2>Settings</h2><p class="settings-subtitle">Make your workspace work for you.</p></div><button class="icon-btn" id="closeSettings" aria-label="Close settings">×</button></div>
+  <div class="settings-head">
+    <div>
+      <p class="settings-kicker">focus.flow</p>
+      <h2>Settings</h2>
+      <p class="settings-subtitle">Make your workspace work for you.</p>
+    </div>
+    <button class="icon-btn" id="closeSettings" aria-label="Close settings">×</button>
+  </div>
 
   <section class="section">
     <h3>Timer durations · minutes</h3>
@@ -170,11 +206,12 @@
       <span>Fullscreen</span><span><kbd>F</kbd></span>
       <span>Open / close settings</span><span><kbd>S</kbd> / <kbd>Esc</kbd></span>
       <span>Skip to next session</span><span><kbd>N</kbd></span>
+      <span>Open / close music</span><span><kbd>M</kbd></span>
       <span>Focus mode</span><span><kbd>1</kbd></span>
       <span>Short break</span><span><kbd>2</kbd></span>
       <span>Long break</span><span><kbd>3</kbd></span>
     </div>
-    <p class="help">Shortcuts are ignored while you type in an input or text field. To customize keys, edit the shortcut map near the top of the JavaScript.</p>
+    <p class="help">Shortcuts are ignored while typing in input or text fields.</p>
   </section>
 
   <section class="section">
@@ -187,55 +224,96 @@
     <p class="help">Settings are saved locally in this browser. Uploaded files are not saved permanently; select them again after reloading the page.</p>
   </section>
 </aside>
+
+<!-- Music Floating Button & Mini Player -->
 <button class="music-fab" id="musicBtn" aria-label="Open music player" title="Music player (M)">♫</button>
 <div class="music-mini" id="musicMini" aria-hidden="true">
   <div class="music-mini-art" id="miniArt"></div>
   <div class="music-mini-copy"><strong id="miniTitle">Nothing playing</strong><span id="miniArtist">Open player</span></div>
   <button type="button" id="miniPlay" aria-label="Play or pause">▶</button>
 </div>
+
+<!-- Music Panel -->
 <section class="music-panel" id="musicPanel" aria-label="Music player" aria-hidden="true">
-  <div class="music-head"><div><div class="music-kicker">FOCUS SOUNDTRACK</div><h2>Music player</h2></div><button class="icon-btn" id="closeMusic" aria-label="Close music player">×</button></div>
+  <div class="music-head">
+    <div>
+      <div class="music-kicker">FOCUS SOUNDTRACK</div>
+      <h2>Music player</h2>
+    </div>
+    <button class="icon-btn" id="closeMusic" aria-label="Close music player">×</button>
+  </div>
+
   <div class="now-playing">
-    <div class="album-art" id="albumArt" aria-label="Album artwork"><span id="albumGlyph">♫</span><span class="eq" aria-hidden="true"><span></span><span></span><span></span></span></div>
+    <div class="album-art" id="albumArt" aria-label="Album artwork">
+      <span id="albumGlyph">♫</span>
+      <span class="eq" aria-hidden="true"><span></span><span></span><span></span></span>
+    </div>
     <div class="track-meta">
       <strong id="trackTitle">Nothing playing</strong>
-      <span id="trackArtist">Search YouTube to play a track</span>
+      <span id="trackArtist">Search or select a focus soundtrack</span>
       <span class="source-chip" id="trackSource">Ready</span>
     </div>
   </div>
+
   <div class="youtube-player-wrap" id="youtubePlayerWrap" aria-label="YouTube music player">
     <iframe class="embed-frame" id="musicEmbed" title="YouTube music player" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>
   <audio id="musicAudio" preload="none" hidden></audio>
-  <div class="music-progress"><span id="musicCurrent">0:00</span><input id="musicSeek" type="range" min="0" max="100" value="0" aria-label="Seek music"><span id="musicDuration">0:00</span></div>
+
+  <div class="music-progress">
+    <span id="musicCurrent">0:00</span>
+    <input id="musicSeek" type="range" min="0" max="100" value="0" aria-label="Seek music">
+    <span id="musicDuration">0:00</span>
+  </div>
+
   <div class="music-controls">
     <button class="round-btn" id="prevTrack" title="Previous" aria-label="Previous track">|◀</button>
     <button class="music-play" id="toggleMusic" aria-label="Play music">▶</button>
     <button class="round-btn" id="nextTrack" title="Next" aria-label="Next track">▶|</button>
   </div>
-  <div class="field full music-volume"><label for="musicVolume">Volume</label><input id="musicVolume" type="range" min="0" max="1" step="0.01" value="0.7"></div>
+
+  <div class="field full music-volume">
+    <label for="musicVolume">Volume</label>
+    <input id="musicVolume" type="range" min="0" max="1" step="0.01" value="0.7">
+  </div>
+
   <div class="music-import">
-    <label for="musicSearch">Search YouTube</label>
+    <label for="musicSearch">Search or Paste YouTube link</label>
     <div class="music-search">
-      <input id="musicSearch" type="text" placeholder="Song, artist, or lofi mix" aria-label="Search online music">
-      <button class="small-btn" id="searchMusic" type="button">Search</button>
+      <input id="musicSearch" type="text" placeholder="Song, artist, or YouTube URL / ID" aria-label="Search online music">
+      <button class="small-btn primary-btn" id="searchMusic" type="button">Search</button>
     </div>
+
+    <!-- Quick Focus Presets -->
+    <div class="focus-presets-wrap">
+      <span class="focus-presets-label">Curated stations:</span>
+      <div class="focus-presets-chips" id="focusStations">
+        <button type="button" class="station-chip" data-id="jfKfPfyJRdk" data-title="Lofi Girl — beats to relax/study to" data-artist="Lofi Girl">☕ Lofi Beats</button>
+        <button type="button" class="station-chip" data-id="4xDzrJKXOOY" data-title="Synthwave Radio — chill synth" data-artist="Lofi Girl Synth">⚡ Synthwave</button>
+        <button type="button" class="station-chip" data-id="7NOSDKb0HlU" data-title="Deep Focus — Ambient Study Music" data-artist="Quiet Quest">🌌 Deep Focus</button>
+        <button type="button" class="station-chip" data-id="WPni755-Krg" data-title="Peaceful Piano Study Music" data-artist="Yellow Brick Cinema">🎹 Piano Flow</button>
+      </div>
+    </div>
+
     <details class="api-key-settings">
-      <summary>YouTube API setup</summary>
-      <p class="help">GitHub Pages cannot run a private backend. Add your own YouTube Data API v3 key here; it stays in this browser only.</p>
+      <summary>YouTube API setup (for live search)</summary>
+      <p class="help">Add your personal YouTube Data API v3 key to enable live keyword searching. Your key stays stored in this browser only.</p>
       <div class="music-search api-key-row">
-        <input id="youtubeApiKey" type="password" autocomplete="off" placeholder="YouTube Data API key" aria-label="YouTube Data API key">
+        <input id="youtubeApiKey" type="password" autocomplete="off" placeholder="Paste YouTube Data API v3 key" aria-label="YouTube Data API key">
         <button class="small-btn" id="saveApiKey" type="button">Save key</button>
       </div>
-      <p class="help">Restrict your key to YouTube Data API v3 and your GitHub Pages HTTP referrer in Google Cloud Console.</p>
+      <p class="help">Tip: You can also paste any YouTube video link directly into the search bar without an API key!</p>
     </details>
-    <div class="search-results-head"><strong>Search results</strong><span id="searchResultCount">Search YouTube</span></div>
-    <div class="playlist search-results" id="searchResults"><div class="playlist-empty">Search for a song, then choose a result to play.</div></div>
+
+    <div class="search-results-head"><strong>Search results</strong><span id="searchResultCount">0 results</span></div>
+    <div class="playlist search-results" id="searchResults"><div class="playlist-empty">Search for a track or pick a curated station above.</div></div>
     <div class="resolve-bar" id="resolveBar"><span id="resolveFill"></span></div>
   </div>
+
   <div class="playlist-head"><strong>Recently played</strong><span id="playlistCount">0 tracks</span></div>
-  <div class="playlist" id="playlist"><div class="playlist-empty">Search YouTube to play a track to start.</div></div>
+  <div class="playlist" id="playlist"><div class="playlist-empty">Search or play a track to start your history.</div></div>
 </section>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="./app.js" defer></script>

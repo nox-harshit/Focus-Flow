@@ -1,0 +1,8 @@
+{
+  "name": "focus.flow",
+  "description": "Minimal, beautiful Pomodoro timer and music player with customizable backgrounds and themes.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

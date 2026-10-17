@@ -3,8 +3,63 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Page not found — Focus Flow</title>
-  <style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#08090d;color:#f7f7f7;font:16px system-ui,sans-serif;text-align:center}.wrap{padding:2rem}a{color:#d7ff64}</style>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <title>Page not found — focus.flow</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #08090d;
+      color: #f7f7f7;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+      text-align: center;
+    }
+    .wrap {
+      padding: 2rem;
+      max-width: 440px;
+    }
+    .logo {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1.5rem;
+      border-radius: 16px;
+    }
+    h1 {
+      font-size: 2rem;
+      letter-spacing: -0.04em;
+      margin: 0 0 0.5rem;
+    }
+    p {
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0 0 1.5rem;
+      font-size: 0.95rem;
+    }
+    a {
+      display: inline-block;
+      color: #12140b;
+      background: #d7ff64;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      box-shadow: 0 6px 20px rgba(215, 255, 100, 0.25);
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    a:hover {
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+    }
+  </style>
 </head>
-<body><main class="wrap"><h1>Page not found</h1><p>That page doesn't exist in Focus Flow.</p><a href="./index.html">Return to Focus Flow</a></main></body>
+<body>
+  <main class="wrap">
+    <img src="./favicon.svg" alt="focus.flow logo" class="logo" width="64" height="64">
+    <h1>Page not found</h1>
+    <p>That page doesn't exist in focus.flow.</p>
+    <a href="./index.html">Return to focus.flow</a>
+  </main>
+</body>
 </html>
